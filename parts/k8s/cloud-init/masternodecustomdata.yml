@@ -309,6 +309,8 @@ MASTER_CONTAINER_ADDONS_PLACEHOLDER
 {{end}}
 {{if IsAzureStackCloud }}
     AZURE_ENVIRONMENT_FILEPATH=/etc/kubernetes/azurestackcloud.json
+    AZURE_GO_SDK_LOG_LEVEL="DEBUG"
+    AZURE_GO_SDK_LOG_FILE="/var/log/azure/sdklog.log"
 {{end}}
 {{if IsKubernetesVersionGe "1.6.0"}}
   {{if AnyAgentIsLinux}}
