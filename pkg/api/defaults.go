@@ -358,10 +358,12 @@ func (cs *ContainerService) setOrchestratorDefaults(isUpgrade, isScale bool) {
 		}
 
 		if a.OrchestratorProfile.IsAzureCNI() {
-			if a.HasWindows() {
-				a.OrchestratorProfile.KubernetesConfig.AzureCNIVersion = AzureCniPluginVerWindows
-			} else {
-				a.OrchestratorProfile.KubernetesConfig.AzureCNIVersion = AzureCniPluginVerLinux
+			if a.OrchestratorProfile.KubernetesConfig.AzureCNIVersion == nil {
+				if a.HasWindows() {
+					a.OrchestratorProfile.KubernetesConfig.AzureCNIVersion = AzureCniPluginVerWindows
+				} else {
+					a.OrchestratorProfile.KubernetesConfig.AzureCNIVersion = AzureCniPluginVerLinux
+				}
 			}
 		}
 

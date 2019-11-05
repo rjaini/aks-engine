@@ -1957,6 +1957,18 @@ func TestAzureCNIVersionString(t *testing.T) {
 	if properties.OrchestratorProfile.KubernetesConfig.AzureCNIVersion != "" {
 		t.Fatalf("Azure CNI Version string not the expected value, got %s, expected %s", properties.OrchestratorProfile.KubernetesConfig.AzureCNIVersion, "")
 	}
+
+	mockCS = getMockBaseContainerService("1.10.3")
+	properties = mockCS.Properties
+	properties.OrchestratorProfile.OrchestratorType = Kubernetes
+	properties.MasterProfile.Count = 1
+	properties.OrchestratorProfile.KubernetesConfig.NetworkPlugin = NetworkPluginAzure
+	properties.OrchestratorProfile.KubernetesConfig.AzureCNIVersion = AzureCniPluginVerWindows
+	mockCS.setOrchestratorDefaults(true, true)
+
+	if properties.OrchestratorProfile.KubernetesConfig.AzureCNIVersion != AzureCniPluginVerWindows {
+		t.Fatalf("Azure CNI Version string not the expected value, got %s, expected %s", properties.OrchestratorProfile.KubernetesConfig.AzureCNIVersion, AzureCniPluginVerWindows)
+	}
 }
 
 func TestEnableAggregatedAPIs(t *testing.T) {
